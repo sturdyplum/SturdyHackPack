@@ -1,7 +1,9 @@
 //LCA With Binary Lifting
 
 /* USAGE
-
+    
+    Need to set the N variable. 
+    
     Pass in and adjList to getDepths then run fillTable
     this will make the LCA function work as well as populate the 
     depth and table matrices correctly.
