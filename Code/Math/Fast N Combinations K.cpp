@@ -1,3 +1,7 @@
+/*
+ Set the size of the factorial array to be larger than what you would think you need (try 50%)
+*/
+
 
 long long MOD = 1000000007;
 
