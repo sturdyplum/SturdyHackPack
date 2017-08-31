@@ -1,5 +1,5 @@
 /*
- Set the size of the factorial array to be larger than what you would think you need (try 50%)
+ Set the size of the factorial array to be larger than what you would think you need (try 300%)
 */
 
 
