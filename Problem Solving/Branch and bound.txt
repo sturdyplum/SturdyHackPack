@@ -1,3 +1,13 @@
-Branch and bound is problem solving tecnuiqe that is similar to knapsack. The main difference is that you do not memoize. Instead you do a bfs through your graph, however since a binary tree can have many paths it is not usually feasible to search all of the paths. Therefore, there must be some sort of condition that allows you to reduce the search space. For example, if you know that all your subtrees will be valid, you stop and add a O(1) constant. If you know that your subtrees are not valid you return 0. While it is usually hard to bound these sort of problems, if done correctly they can be quite quick. One possible optimization is to randomize the order of the paths you take (if taking some path before another means that you might be able to skip certain paths). 
+Branch and bound is problem solving tecnuiqe that is similar to knapsack. 
+The main difference is that you do not memoize. Instead you do a bfs 
+through your graph, however since a binary tree can have many paths it is
+not usually feasible to search all of the paths. Therefore, there must be
+some sort of condition that allows you to reduce the search space. For 
+example, if you know that all your subtrees will be valid, you stop and 
+add a O(1) constant. If you know that your subtrees are not valid you 
+return 0. While it is usually hard to bound these sort of problems, if
+done correctly they can be quite quick. One possible optimization is to 
+randomize the order of the paths you take (if taking some path before 
+another means that you might be able to skip certain paths). 
 
 Example problems: http://codeforces.com/contest/47/problem/D
