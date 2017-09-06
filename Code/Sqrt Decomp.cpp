@@ -48,7 +48,7 @@ Type query(int left, int right)
 		}
 
 		right_bucket--;
-}
+	}
 	
 	for(int i = left_bucket; i<= right_bucket; i++)
 	{
@@ -72,7 +72,7 @@ Void update_range(int left, int right, int val)
 		{
 			Numbers[i] += val;
 		}
-left_bucket++;
+		left_bucket++;
 	}
 	if((right+1)%sqrt_n != 0 and right >= left)
 	{
@@ -81,11 +81,11 @@ left_bucket++;
 		{
 			Numbers[i] += val;
 		}
-right_bucket--;	
+		right_bucket--;	
 	}
 
 	for(int i = left_bucket; i <= right_bucket; i++)
-{
+	{
 		Delta[i] += val;
 	}
 
