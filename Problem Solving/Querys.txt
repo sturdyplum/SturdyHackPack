@@ -1,0 +1,19 @@
+This file will contain a list of different query and how to solve them.
+
+Min/Max in a range (updates and no updates)
+- Solvable by BIT or Segment tree in log(n)
+
+Range sum query (updates and no updates)
+- Solvable by BIT or Segment tree in log(n)
+
+Smallest number not in the range
+- Moes Algorithm (no updates). To do this in log(n) * (Moes alg complexity), keep track of the unique elements in your current
+  range in a bit, using ones and zeros to represent there and not there and a frequency array to see if you should add/remove to the bit.
+  To do the actual query do the BIT trick where you walk the bit to find the first occurence of a zero.  
+- (No current solution for updates)
+  
+Unique elements in range
+- Moes Algorithm (no updates).
+- Persistent segment tree (updates).
+
+
