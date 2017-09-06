@@ -1,4 +1,8 @@
 /*
+ Not Tested!
+*/
+
+/*
 This is a compressed 2d binary index tree.
 it can only support binary values i.e. 1 or 0.
 
