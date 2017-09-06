@@ -1,4 +1,5 @@
 /*
+  Not Tested!
 
   Suffix automata taken from: http://e-maxx.ru/algo/suffix_automata
   Space Complexity O(N)
