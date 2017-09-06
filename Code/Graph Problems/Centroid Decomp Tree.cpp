@@ -1,4 +1,6 @@
 /*
+  Not Tested!
+
   Centroid Decomp Tree, taken from geeksforgeeks
   Usage, create tree using addEdge then decompose it by runing
   decompose tree, this creates a new tree of centroids.
