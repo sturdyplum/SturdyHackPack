@@ -1,0 +1,5 @@
+You can solve certain tree query problems using Mos Algorithm.
+First you do a pre order post order conversion on the tree to turn it into an array
+of indices. Then you can simply do moes algorithm and sort the querys, if an index
+is in your range twice then you know that you went down and up that subtree and thus 
+the element should be removed. 
