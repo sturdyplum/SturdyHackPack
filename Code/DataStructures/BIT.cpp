@@ -17,11 +17,12 @@ struct FenwickTree
     }
     int rsq(int a, int b)
     {
-        a++, b++;
-        return rsq(b) - (a == 1 ? 0 : rsq(a - 1));
+        if(b < a) return 0;
+        return rsq(b) - (a == 0 ? 0 : rsq(a - 1));
     }
     void adjust(int k, int v)
     {
+        k++;
         for (; k < ft.size(); k += k & -k) ft[k] += v;
     }
 
