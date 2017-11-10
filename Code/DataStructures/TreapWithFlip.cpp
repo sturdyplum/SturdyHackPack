@@ -4,37 +4,46 @@ using namespace std;
 
 /*
 http://e-maxx.ru/algo/treap#7
-
-UNTESTED
 */
-
+int n;
 struct Cartesian
 {
+    vector<int> oa;
     struct item {
-        int prior, value, cnt, min, minI;
+        int prior, value, cnt, min;
         bool rev;
         item *l, *r;
+
+        ~item()
+        {
+            delete l;
+            delete r;
+        }
     };
 
     item *root;
     Cartesian(int n, vector<int> &orig)
     {
+        oa = orig;
         srand(time(NULL));
         root = new item;
         root->cnt = 1;
-        root->min = orig[0];
-        root->minI = 0;
+        root->min = 0;
         root->prior = rand();
         root->value = 0;
+        root->l = NULL;
+        root->r = NULL;
         for(int i = 1; i < n; i++)
         {
             item *ni = new item;
             ni->prior = rand();
             ni->value = i;
             ni->cnt = 1;
-            ni->min = orig[i];
-            ni->minI = 0;
+            ni->min = i;
+            ni->l = NULL;
+            ni->r = NULL;
             merge(root, root, ni);
+
         }
     }
 
@@ -48,22 +57,33 @@ struct Cartesian
     }
 
     int getMin (item *it) {
-        return it?it->min:2000000000;
+        return it?oa[it->min]:2000000000;
     }
-
-
 
     void upd_min (item *it) {
         if (it) {
+            push(it);
             it->min = it->value;
-            it->minI = cnt(it->l);
-            if(getMin(it->l) < it->min)
+            if(getMin(it->l) <= getMin(it))
             {
-                it->min = getMin(it->l);
-                it->minI = it->l->minI;
-            } else if (getMin(it->r) < it->min) {
-                it->min = getMin(it->r);
-                it->minI = it->r->minI+cnt(it->l)+1;
+                if(getMin(it->l) == getMin(it))
+                {
+                    it->min = min(it->min, it->l->min);
+                }
+                else
+                {
+                    it->min = it->l->min;
+                }
+            }
+            if (getMin(it->r) <=getMin(it)){
+                if(getMin(it->r) == getMin(it))
+                {
+                    it->min= min(it->min, it->r->min);
+                }
+                else
+                {
+                    it->min = it->r->min;
+                }
             }
         }
     }
@@ -78,6 +98,7 @@ struct Cartesian
     }
 
     void merge (item *&t, item *l, item *r) {
+
         push (l);
         push (r);
         if (! l ||! r)
@@ -91,6 +112,7 @@ struct Cartesian
     }
 
     void split (item *t, item *&l, item *&r, int key, int add = 0) {
+
         if (! t)
             return void (l = r = 0);
         push (t);
@@ -105,23 +127,27 @@ struct Cartesian
 
     void reverse (item *t, int l, int r) {
         item *t1, *t2, *t3;
+        t1 = t2 = t3 =NULL;
         split (t, t1, t2, l);
         split (t2, t2, t3, r-l + 1);
         t2->rev ^= true;
         merge (t, t1, t2);
         merge (t, t, t3);
+
     }
 
     void output (item *t) {
         if (!t) return;
         push (t);
         output (t->l);
-        printf ("% d", t-> value);
+        cout << oa[t->value]<< " ";
         output (t->r);
     }
 
     void removeSegment (item *t, int l, int r, int nl) {
+        push(t);
         item *t1, *t2, *t3, *t4, *t5;
+        t1 = t2 = t3 =t4=t5 = NULL;
         split(t, t1, t2, l);
         split(t2,t2,t3,r-l + 1);
         merge(t, t1, t3);
@@ -133,18 +159,83 @@ struct Cartesian
 
     int queryMin(item *t, int l, int r)
     {
+        push(t);
         item *t1, *t2, *t3;
+        t1 = t2 =t3 = NULL;
         split(t, t1, t2, l);
         split(t2, t2, t3, r-l+1);
-        int ans = t2->minI+cnt(t1);
-        merge(t, t, t2);
+        int ans = go(t2);
+
+        merge(t, t1, t2);
         merge(t, t, t3);
+
         return ans;
     }
+
+    int go(item *t)
+    {
+        push(t);
+        if(oa[t->value] < getMin(t->l) and oa[t->value] < getMin(t->r)) return cnt(t->l);
+        bool left = 1;
+        if(getMin(t->r) < getMin(t->l)) left = 0;
+        else if(getMin(t->r) == getMin(t->l))
+        {
+            if(t->r->min < t->l->min) left = 0;
+        }
+        if(left and oa[t->value] == getMin(t->l) and t->value < t->l->min)return cnt(t->l);
+        if(!left and oa[t->value] == getMin(t->r) and t->value < t->r->min)return cnt(t->l);
+        if(left) return go(t->l);
+        return go(t->r) + 1 + cnt(t->l);
+
+    }
+
+    void getArr(item *t,vector<int> &arr)
+    {
+        if(!t) return;
+        getArr(t->l, arr);
+        arr.push_back(oa[t->value]);
+        getArr(t->r, arr);
+    }
+
+    ~Cartesian()
+    {
+        delete root;
+    }
+
 };
 
 int main()
 {
-    
+    while(scanf("%d", &n), n)
+    {
+        vector<int> numbers(n);
+        int i;
+        for(i = 0; i < n; i++){
+
+            cin >> numbers[i];
+        }
+        Cartesian t(n, numbers);
+
+
+        for(int i = 0; i < n; i++){
+            int loc = t.queryMin(t.root,i,n-1);
+            if(i) cout <<" ";
+            cout << loc+1+i;
+
+
+            if(loc)
+            {
+                t.reverse(t.root, i, loc+i);
+            }
+        }
+        vector<int> tt;
+        t.getArr(t.root, tt);
+        for(int i = 0; i < n-1; i++)
+        {
+            assert(tt[i] <= tt[i+1]);
+        }
+        cout << endl;
+    }
     return 0;
 }
+
