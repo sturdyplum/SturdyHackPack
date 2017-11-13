@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class BIT {
 	private static int ft[], sum, maxi, N;
 	BIT(int n) {
@@ -36,5 +34,6 @@ public class BIT {
 		}
 		return ans+1;
 	}
-	
+
 }
+
