@@ -3,7 +3,7 @@ public class BIT {
 	BIT(int n) {
 		ft = new int[n+1];
 		maxi = -1;
-		while((1 << ++maxi) <= n+1);
+		while((1 << maxi) <= n+1)maxi++;
 		maxi--;
 		n = N;
 	}
