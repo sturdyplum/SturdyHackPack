@@ -24,7 +24,10 @@ public class SuperBit1D {
 	
 	long getPre(int x) { // get sum v[1..x]
 	  long  a = 0, b = 0;
-	  for (int i = x; i > 0; i -= i & -i) a += mul[i], b += add[i];
+	  for (int i = x; i > 0; i -= i & -i) {
+		  a += mul[i];
+		  b += add[i];
+	  }
 	  return a * x + b;
 	}
 	void rangeUpdate(int l, int r, long val) { // v[l..r] += val
