@@ -2,7 +2,8 @@ package Geom;
 import java.util.Arrays;
 
 public class Util{
-
+	static double EPS = 1e-9;
+	static double INF = 2e9;
 	// returns dot product of |a-b|*|b-c|
 	public static double dot(Point a, Point b, Point c) {
 		Point ab = new Point(b.x - a.x, b.y - a.y);
