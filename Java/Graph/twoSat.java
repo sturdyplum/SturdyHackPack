@@ -8,9 +8,6 @@ public static class twoSat {
 		for(int i = 0; i < 2 * N; i++) {
 			edge[i] = new ArrayList<>();
 		}
-		for(int i = 0; i < n; i++) {
-
-		}
 		dfsin = new int[N*2];
 		Arrays.fill(dfsin, -1);
 		lowlink = new int[N*2];
