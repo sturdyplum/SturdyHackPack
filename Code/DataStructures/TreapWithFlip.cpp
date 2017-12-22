@@ -2,28 +2,22 @@
 
 using namespace std;
 
-/*
-http://e-maxx.ru/algo/treap#7
-*/
 int n;
-struct Cartesian
-{
+struct Cartesian {
     vector<int> oa;
     struct item {
         int prior, value, cnt, min;
         bool rev;
         item *l, *r;
 
-        ~item()
-        {
+        ~item() {
             delete l;
             delete r;
         }
     };
 
     item *root;
-    Cartesian(int n, vector<int> &orig)
-    {
+    Cartesian(int n, vector<int> &orig) {
         oa = orig;
         srand(time(NULL));
         root = new item;
@@ -33,8 +27,7 @@ struct Cartesian
         root->value = 0;
         root->l = NULL;
         root->r = NULL;
-        for(int i = 1; i < n; i++)
-        {
+        for(int i = 1; i < n; i++) {
             item *ni = new item;
             ni->prior = rand();
             ni->value = i;
@@ -43,7 +36,6 @@ struct Cartesian
             ni->l = NULL;
             ni->r = NULL;
             merge(root, root, ni);
-
         }
     }
 
@@ -64,24 +56,19 @@ struct Cartesian
         if (it) {
             push(it);
             it->min = it->value;
-            if(getMin(it->l) <= getMin(it))
-            {
-                if(getMin(it->l) == getMin(it))
-                {
+            if(getMin(it->l) <= getMin(it)) {
+                if(getMin(it->l) == getMin(it)) {
                     it->min = min(it->min, it->l->min);
                 }
-                else
-                {
+                else {
                     it->min = it->l->min;
                 }
             }
             if (getMin(it->r) <=getMin(it)){
-                if(getMin(it->r) == getMin(it))
-                {
+                if(getMin(it->r) == getMin(it)) {
                     it->min= min(it->min, it->r->min);
                 }
-                else
-                {
+                else {
                     it->min = it->r->min;
                 }
             }
@@ -157,8 +144,7 @@ struct Cartesian
         merge(t, t, t5);
     }
 
-    int queryMin(item *t, int l, int r)
-    {
+    int queryMin(item *t, int l, int r) {
         push(t);
         item *t1, *t2, *t3;
         t1 = t2 =t3 = NULL;
@@ -204,14 +190,13 @@ struct Cartesian
 
 };
 
-int main()
-{
-    while(scanf("%d", &n), n)
-    {
+
+// USAGE EXAMPLE
+int main() {
+    while(scanf("%d", &n), n) {
         vector<int> numbers(n);
         int i;
         for(i = 0; i < n; i++){
-
             cin >> numbers[i];
         }
         Cartesian t(n, numbers);
@@ -221,17 +206,13 @@ int main()
             int loc = t.queryMin(t.root,i,n-1);
             if(i) cout <<" ";
             cout << loc+1+i;
-
-
-            if(loc)
-            {
+            if(loc) {
                 t.reverse(t.root, i, loc+i);
             }
         }
         vector<int> tt;
         t.getArr(t.root, tt);
-        for(int i = 0; i < n-1; i++)
-        {
+        for(int i = 0; i < n-1; i++) {
             assert(tt[i] <= tt[i+1]);
         }
         cout << endl;
