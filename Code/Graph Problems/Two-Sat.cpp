@@ -28,7 +28,10 @@ void add_distinct(int i, int j) {
 }
 
 // Tarjan's algorithm for strongly connected components.
-int dfstime, dfsin[maxv], lowlink[maxv], ncomp, comp[maxv], stack[maxv], ss;
+// make sure to fill dfsin and lowlink with -1 and then to check weather the graph created is satisfyable 
+// itterate over all your nodes and un scc on any node that has not yet been visited. Then check that no
+// node is in the same scc as its opposite (comp[i*2] != comp[i*2+1]).
+int dfstime = 0, dfsin[maxv], lowlink[maxv], ncomp, comp[maxv], stack[maxv], ss;
 
 void scc(int v) {
   int w;
